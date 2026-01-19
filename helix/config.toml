@@ -3,6 +3,7 @@ theme = "onedark"
 [editor]
 line-number = "relative"
 mouse = false
+rulers = [80, 120]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -20,3 +21,8 @@ separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
+
+[keys.normal]
+S-up = "page_up"
+S-down = "page_down"
+

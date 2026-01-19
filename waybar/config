@@ -16,9 +16,12 @@
         "capslock": true,
         "format": "{name} {icon}",
         "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "locked": "🔒",
+            "unlocked": "🔓"
         }
+    },
+    "sway/language": {
+        "format": "{short}"
     },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
@@ -26,15 +29,15 @@
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
+        "format-icons": ["", "📋"],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "☀️",
+            "deactivated": "🌙"
         }
     },
     "tray": {
@@ -44,20 +47,21 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%d-%m-%Y}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}% 🖥️",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% MEM"
+        "format": "{}% {icon}",
+        "format-icons": ["🧠"]
     },
     "temperature": {
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        "format": "{temperatureC}°C CPU"
+        "format": "{temperatureC}°C {icon}"
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -71,11 +75,11 @@
         "format-plugged": "{capacity}% 🔌",
         "format-alt": "{time}",
     },
-    
+
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%)",
-        "format-disconnected": "Disconnected ⚠",
+        "format-disconnected": "Disconnected ⚠️",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
@@ -84,12 +88,11 @@
         "format-bluetooth": "{volume}% {icon}",
         "format-bluetooth-muted": "🔇 {icon}",
         "format-muted": "🔇 {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format-source": "{volume}% 🎤",
+        "format-source-muted": "🎤",
         "format-icons": {
             "default": "🔊"
         },
         "on-click": "pavucontrol"
     }
 }
-

@@ -4,8 +4,9 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-exec sway border pixel
-exec sway default_border pixel
+
+# exec sway border pixel
+default_border pixel
 
 ### Variables
 #
@@ -18,6 +19,12 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term foot
+# Define outputs for easy switching
+# USB-C (left monitor)
+set $left_output DP-1
+# HDMI (right monitor)
+set $right_output HDMI-A-1
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -26,13 +33,28 @@ set $term foot
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/cossack_green.png fill
-#
-#
-output HDMI-A-1 resolution 1920x1200 position 0,0 scale 1
-output eDP-1 resolution 1920x1200 position 0,1200 scale 1
-output DP-1 resolution 1920x1200 position -1920,0 scale 1
-#
+output * bg /usr/share/backgrounds/sway/wallpaper-flower.jpg fill
+
+# X,Y Y axis is inverted, top-left pixel is position
+# DO NOT USE NEGATIVE POSITIONS !!!
+# output $left_output res 1920x1200 position 0,1200
+output $left_output res 2560x1440 position 0,1440
+output $right_output res 1920x1200 position 2560,1440 transform 270
+
+# Comment out unused DP-1 if not connected
+# output DP-1 res 1920x1200 position 0,0
+workspace 1 output $left_output
+workspace 2 output $left_output
+workspace 3 output $left_output
+workspace 4 output $left_output
+workspace 5 output $left_output
+workspace 6 output $right_output
+workspace 7 output $right_output
+workspace 8 output $right_output
+workspace 9 output $right_output
+workspace 10 output $right_output
+
+
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 # This works something like the top left pixel of the laptop screen is 0 (or bottom right idk)
 
@@ -58,13 +80,25 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 	xkb_variant ,intl
 }
 
-bindsym $mod+BackSpace input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next 
+bindsym $mod+BackSpace input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
+
+input "13364:275:Keychron_Keychron_Q2_Keyboard" {
+	xkb_layout us,us
+	xkb_variant ,intl
+}
 
 input "1739:52914:SYNA8017:00_06CB:CEB2_Touchpad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
+}
+
+input "4817:4296:Primax_HUAWEI_Mouse_WYN" {
+    natural_scroll disabled
+    dwt enabled
+    accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    pointer_accel 0 # set mouse sensitivity (between -1 and 1)
 }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -85,7 +119,7 @@ input "1739:52914:SYNA8017:00_06CB:CEB2_Touchpad" {
 
     # Start your launcher
     #bindsym $mod+d exec $menu
-    bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -m -1
+    bindsym $mod+d exec --no-startup-id fuzzel
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -212,23 +246,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-# bar {
-#     position top
-#     # Add time etc by adding script in the sme fode, then call whil status.sh
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     # The default just shows the current date and time.
-#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
-
 bar {
     swaybar_command waybar
 }
@@ -244,6 +261,6 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 exec nm-applet --indicator
 exec mako
-exec blueman-applet 
+exec blueman-applet
 
 include /etc/sway/config.d/*
